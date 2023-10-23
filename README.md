@@ -19,7 +19,7 @@ The Doom fire effect is a visually intriguing animation famously used in the vid
 3. Open the `Fire.html` file in your web browser to see the fire effect in action.
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/) - see the [LICENSE](LICENSE) file for details.
+See the  [LICENSE.md](LICENSE.md)  file for details.
 
 ## Acknowledgments
 - Inspired by [Filipe Deschamps video](https://www.youtube.com/watch?v=fxm8cadCqbs) on Doom fire effect.
