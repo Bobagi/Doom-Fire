@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Doom Fire</title>
 	<style>
 		table{
 			border-collapse: collapse;
 			border: 1px solid #FFF;
-			background-color: #000
+			background-color: #000;
 		}
 
 		td{
@@ -28,7 +28,6 @@
 			top: 2px;
 			right: 2px;
 			color: #FFD700;
-
 		}
 
 		td.pixel{
@@ -47,57 +46,103 @@
 			margin-bottom: 20px;
 		}
 
+		fieldset {
+			border: 1px solid #ccc;
+			padding: 10px;
+			margin-bottom: 15px;
+		}
+
+		legend {
+			font-weight: bold;
+		}
+
+		label {
+			margin-right: 10px;
+		}
+
+		.control-group {
+			margin-bottom: 10px;
+		}
 	</style>
 </head>
 <body>
-	<div class="controls">
-		<label for="widthSlider">Fire Width: </label>
-		<input type="range" id="widthSlider" min="10" max="100" value="40" oninput="updateWidth(this.value)">
-		<span id="widthValue">40</span>
 
-		<label for="heightSlider">Fire Height: </label>
-		<input type="range" id="heightSlider" min="10" max="100" value="40" oninput="updateHeight(this.value)">
-		<span id="heightValue">40</span>
+	<!-- Group 1: Fire dimensions and behavior -->
+	<fieldset>
+		<legend>Fire Dimensions & Behavior</legend>
+		<div class="control-group">
+			<label for="widthSlider">Fire Width:</label>
+			<input type="range" id="widthSlider" min="10" max="100" value="40" oninput="updateWidth(this.value)">
+			<span id="widthValue">40</span>
+		</div>
+		<div class="control-group">
+			<label for="heightSlider">Fire Height:</label>
+			<input type="range" id="heightSlider" min="10" max="100" value="40" oninput="updateHeight(this.value)">
+			<span id="heightValue">40</span>
+		</div>
+		<div class="control-group">
+			<label for="cellSizeSlider">Cell Size:</label>
+			<input type="range" id="cellSizeSlider" min="1" max="20" value="8" oninput="updateCellSize(this.value)">
+			<span id="cellSizeValue">8</span>
+		</div>
+	</fieldset>
 
-	    <label for="cellSizeSlider">Cell Size: </label>
-		<input type="range" id="cellSizeSlider" min="1" max="20" value="8" oninput="updateCellSize(this.value)">
-		<span id="cellSizeValue">8</span>
+	<!-- Group 2: Fire settings (decay, wind, speed) -->
+	<fieldset>
+		<legend>Fire Settings</legend>
+		<div class="control-group">
+			<label for="decayFactorSlider">Decay:</label>
+			<input type="range" id="decayFactorSlider" min="1" max="10" value="3" oninput="updateDecayFactor(this.value)">
+			<span id="decayFactorValue">3</span>
+		</div>
+		<div class="control-group">
+			<label for="windFactorSlider">Wind Force:</label>
+			<input type="range" id="windFactorSlider" min="0" max="6" value="3" oninput="updateWindFactor(this.value)">
+			<span id="windFactorValue">3</span>
+		</div>
+		<div class="control-group">
+			<label for="windDirection">Wind Direction:</label>
+			<input type="radio" id="leftWind" name="windDirection" value="left" checked onchange="updateWindDirection(this.value)"> Left
+			<input type="radio" id="rightWind" name="windDirection" value="right" onchange="updateWindDirection(this.value)"> Right
+		</div>
+		<div class="control-group">
+			<label for="speedSlider">Fire Speed:</label>
+			<input type="range" id="speedSlider" min="10" max="200" value="50" step="10" oninput="updateFireSpeed(this.value)">
+			<span id="speedValue">50 ms</span>
+		</div>
+	</fieldset>
 
-	    <label for="decayFactorSlider">Decay: </label>
-		<input type="range" id="decayFactorSlider" min="1" max="10" value="3" oninput="updateDecayFactor(this.value)">
-		<span id="decayFactorValue">3</span>		
+	<!-- Group 3: Fire Colors -->
+	<fieldset>
+		<legend>Fire Colors</legend>
+		<div class="control-group">
+			<label for="strongestColor">Strongest Color (White):</label>
+			<input type="color" id="strongestColor" value="#FFFFFF" onchange="updateMainColor(36, this.value)">
+		</div>
+		<div class="control-group">
+			<label for="secondStrongestColor">Second Strongest (Yellow):</label>
+			<input type="color" id="secondStrongestColor" value="#FFFF00" onchange="updateMainColor(24, this.value)">
+		</div>
+		<div class="control-group">
+			<label for="thirdStrongestColor">Third Strongest (Red):</label>
+			<input type="color" id="thirdStrongestColor" value="#FF0000" onchange="updateMainColor(12, this.value)">
+		</div>
+		<div class="control-group">
+			<label for="weakestColor">Weakest Color (Black):</label>
+			<input type="color" id="weakestColor" value="#000000" onchange="updateMainColor(0, this.value)">
+		</div>
+	</fieldset>
 
-		<label for="windFactorSlider">Wind force: </label>
-		<input type="range" id="windFactorSlider" min="0" max="6" value="3" oninput="updateWindFactor(this.value)">
-		<span id="windFactorValue">3</span>	
+	<!-- Group 4: Control buttons -->
+	<fieldset>
+		<legend>Control Buttons</legend>
+		<button onclick="pixelDebugMode()" style="padding-top: 5px;">Pixel Debug Mode</button>
+		<button onclick="restart()" style="padding-top: 5px;">Restart</button>
+	</fieldset>
 
-		<label for="windDirection">Wind Direction: </label>
-		<input type="radio" id="leftWind" name="windDirection" value="left" checked onchange="updateWindDirection(this.value)"> Left
-		<input type="radio" id="rightWind" name="windDirection" value="right" onchange="updateWindDirection(this.value)"> Right
-
-		<label for="speedSlider">Fire Speed: </label>
-		<input type="range" id="speedSlider" min="10" max="200" value="50" step="10" oninput="updateFireSpeed(this.value)">
-		<span id="speedValue">50 ms</span>
-
-	</div>
-
-	<div class="controls">
-		<label for="strongestColor">Strongest Color (White): </label>
-		<input type="color" id="strongestColor" value="#FFFFFF" onchange="updateMainColor(36, this.value)">
-		
-		<label for="secondStrongestColor">Second Strongest (Yellow): </label>
-		<input type="color" id="secondStrongestColor" value="#FFFF00" onchange="updateMainColor(24, this.value)">
-		
-		<label for="thirdStrongestColor">Third Strongest (Red): </label>
-		<input type="color" id="thirdStrongestColor" value="#FF0000" onchange="updateMainColor(12, this.value)">
-		
-		<label for="weakestColor">Weakest Color (Black): </label>
-		<input type="color" id="weakestColor" value="#000000" onchange="updateMainColor(0, this.value)">
-	</div>
-
+	<!-- Fire rendering area -->
 	<div id="fireCanvas" style="width: 805px;"></div>
+
 	<script src="Fire.js"></script>
-	<button onclick="debugMode()" style="padding-top: 5px;">Debug</button>
-	<button onclick="start()" style="padding-top: 5px;">Start</button>
 </body>
 </html>
