@@ -75,6 +75,10 @@
 		<input type="radio" id="leftWind" name="windDirection" value="left" checked onchange="updateWindDirection(this.value)"> Left
 		<input type="radio" id="rightWind" name="windDirection" value="right" onchange="updateWindDirection(this.value)"> Right
 
+		<label for="speedSlider">Fire Speed: </label>
+		<input type="range" id="speedSlider" min="10" max="200" value="50" step="10" oninput="updateFireSpeed(this.value)">
+		<span id="speedValue">50 ms</span>
+
 	</div>
 
 	<div id="fireCanvas" style="width: 805px;"></div>

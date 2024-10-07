@@ -7,11 +7,13 @@ let cellSize = 8;
 let decayFactor = 3;
 let windFactor = 3;
 let windDirectionType = 'left'; // Direção inicial do vento (esquerda)
+let fireSpeed = 50; // Velocidade inicial das chamas (em milissegundos)
+let fireInterval; // Armazena o intervalo para que possamos reiniciá-lo
 
 function start() {
 	fireDataStructure()
 	renderFire()
-	setInterval(firePropagation,50)
+	fireInterval = setInterval(firePropagation, fireSpeed);
 }
 
 function fireDataStructure() {
@@ -132,6 +134,16 @@ function updateWindFactor(newWindFactor) {
 
 function updateWindDirection(direction) {
     windDirectionType = direction;  // Atualiza a direção do vento com base no radio button selecionado
+}
+
+// Função para atualizar a velocidade do fogo dinamicamente
+function updateFireSpeed(newSpeed) {
+    fireSpeed = parseInt(newSpeed, 10);  // Converte o valor para inteiro
+    document.getElementById('speedValue').innerText = `${newSpeed} ms`;  // Atualiza o texto do valor
+
+    // Reinicia o intervalo com a nova velocidade
+    clearInterval(fireInterval);
+    fireInterval = setInterval(firePropagation, fireSpeed);
 }
 
 start()
