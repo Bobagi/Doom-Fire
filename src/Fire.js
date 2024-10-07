@@ -5,6 +5,8 @@ const firePalette = [{"r":7,"g":7,"b":7},{"r":31,"g":7,"b":7},{"r":47,"g":15,"b"
 let debug = false
 let cellSize = 8;
 let decayFactor = 3;
+let windFactor = 3;
+let windDirectionType = 'left'; // Direção inicial do vento (esquerda)
 
 function start() {
 	fireDataStructure()
@@ -23,18 +25,28 @@ function fireDataStructure() {
 	fireSource()
 }
 
-function firePropagation(){
-	for(let column = 0; column < fireWidth; column++){
-		let index = column
-		for(let row = 1; row < fireHeight; row++){
-			let decay = Math.floor(Math.random() * decayFactor)
-			let newIntensity = firePixel[index+fireWidth]-decay
-			if(newIntensity>=0) firePixel[index-decay]=newIntensity
-			else firePixel[index-decay]=0
-			index += fireWidth
-		}
-	}
-	renderFire()
+function firePropagation() {
+    for (let column = 0; column < fireWidth; column++) {
+        let index = column;
+        for (let row = 1; row < fireHeight; row++) {
+            let decay = Math.floor(Math.random() * decayFactor);
+            let windDirection = Math.floor(Math.random() * windFactor);
+            let newIntensity = firePixel[index + fireWidth] - decay;
+
+            if (windDirectionType === 'left') {
+                // Vento para a esquerda (padrão)
+                if (newIntensity >= 0) firePixel[index - windDirection] = newIntensity;
+                else firePixel[index - windDirection] = 0;
+            } else {
+                // Vento para a direita
+                if (newIntensity >= 0) firePixel[index + windDirection] = newIntensity;
+                else firePixel[index + windDirection] = 0;
+            }
+
+            index += fireWidth;
+        }
+    }
+    renderFire();
 }
 
 function renderFire(){
@@ -111,6 +123,15 @@ function updateCellSize(newSize) {
 function updateDecayFactor(newDecayFactor) {
 	decayFactor = parseInt(newDecayFactor, 10);  // Convertendo string para inteiro
 	document.getElementById('decayFactorValue').innerText = newDecayFactor;
+}
+
+function updateWindFactor(newWindFactor) {
+	windFactor = parseInt(newWindFactor, 10);  // Convertendo string para inteiro
+	document.getElementById('windFactorValue').innerText = newWindFactor;
+}
+
+function updateWindDirection(direction) {
+    windDirectionType = direction;  // Atualiza a direção do vento com base no radio button selecionado
 }
 
 start()
