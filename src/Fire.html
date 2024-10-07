@@ -64,7 +64,7 @@
 		<span id="cellSizeValue">8</span>
 
 	    <label for="decayFactorSlider">Decay: </label>
-		<input type="range" id="decayFactorSlider" min="2" max="10" value="3" oninput="updateDecayFactor(this.value)">
+		<input type="range" id="decayFactorSlider" min="1" max="10" value="3" oninput="updateDecayFactor(this.value)">
 		<span id="decayFactorValue">3</span>		
 
 		<label for="windFactorSlider">Wind force: </label>
@@ -79,6 +79,21 @@
 		<input type="range" id="speedSlider" min="10" max="200" value="50" step="10" oninput="updateFireSpeed(this.value)">
 		<span id="speedValue">50 ms</span>
 
+	</div>
+
+	<div class="controls">
+		<!-- Seletor para as quatro cores principais -->
+		<label for="strongestColor">Strongest Color (White): </label>
+		<input type="color" id="strongestColor" value="#FFFFFF" onchange="updateMainColor(36, this.value)">
+		
+		<label for="secondStrongestColor">Second Strongest (Yellow): </label>
+		<input type="color" id="secondStrongestColor" value="#FFFF00" onchange="updateMainColor(24, this.value)">
+		
+		<label for="thirdStrongestColor">Third Strongest (Red): </label>
+		<input type="color" id="thirdStrongestColor" value="#FF0000" onchange="updateMainColor(12, this.value)">
+		
+		<label for="weakestColor">Weakest Color (Black): </label>
+		<input type="color" id="weakestColor" value="#000000" onchange="updateMainColor(0, this.value)">
 	</div>
 
 	<div id="fireCanvas" style="width: 805px;"></div>
